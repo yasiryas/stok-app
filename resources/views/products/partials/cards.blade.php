@@ -13,6 +13,10 @@
                 </div>
 
                 <div class="flex flex-col gap-1 text-sm">
+                    <button onclick="openStockModal({{ $p->id }}, 'in')"
+                        class="text-green-600 text-sm">IN</button>
+                    <button onclick="openStockModal({{ $p->id }}, 'out')"
+                        class="text-orange-600 text-sm">OUT</button>
                     <button onclick="openEditModal({{ $p->id }})" class="text-blue-600">
                         Edit
                     </button>
@@ -24,3 +28,7 @@
         </div>
     @endforeach
 </div>
+
+
+{{-- SENTINEL --}}
+<div id="infiniteScrollTrigger" class="h-10 md:hidden"></div>

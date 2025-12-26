@@ -9,7 +9,16 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::latest()->get();
+        $products = Product::latest()->paginate(10);
+
+        if (request()->ajax()) {
+            return response()->json([
+                'rows' => view('products.partials.row', compact('products'))->render(),
+                'pagination' => $products->links()->render(),
+                'hasMore' => $products->hasMorePages(),
+            ]);
+        }
+
         return view('products.index', compact('products'));
     }
 

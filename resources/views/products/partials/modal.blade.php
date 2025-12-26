@@ -1,6 +1,6 @@
 <!-- MODAL TAMBAH-->
 <div id="modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-    <div class="bg-white w-full max-w-md rounded p-6">
+    <div class="bg-white w-full max-w-md rounded p-6 m-2">
         <h2 class="text-lg font-bold mb-4">Tambah Barang</h2>
 
         <form id="formTambah">
@@ -33,7 +33,7 @@
 
 <!-- MODAL EDIT -->
 <div id="modalEdit" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-    <div class="bg-white w-full max-w-md rounded p-6">
+    <div class="bg-white w-full max-w-md rounded p-6 m-2">
         <h2 class="text-lg font-bold mb-4">Edit Barang</h2>
 
         <form id="formEdit">
@@ -69,7 +69,7 @@
 
 <!-- MODAL DELETE -->
 <div id="modalDelete" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-    <div class="bg-white w-full max-w-sm rounded p-6">
+    <div class="bg-white w-full max-w-sm rounded p-6 m-2">
         <h2 class="text-lg font-bold mb-4 text-red-600">Hapus Barang</h2>
 
         <p class="mb-6 text-sm">
@@ -84,5 +84,32 @@
                 Ya, Hapus
             </button>
         </div>
+    </div>
+</div>
+
+<div id="modalStock" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
+    <div class="bg-white rounded p-6 w-full max-w-md m-2">
+        <h2 id="stockTitle" class="font-bold mb-4"></h2>
+
+        <form id="formStock">
+            <input type="hidden" id="stock_product_id">
+            <input type="hidden" id="stock_type">
+
+            <div class="mb-3">
+                <label>Qty</label>
+                <input type="number" name="qty" class="w-full border p-2 rounded">
+                <small class="text-red-600 error-qty"></small>
+            </div>
+
+            <div class="mb-4">
+                <label>Catatan</label>
+                <input type="text" name="note" class="w-full border p-2 rounded">
+            </div>
+
+            <div class="flex justify-end gap-2">
+                <button type="button" onclick="closeStockModal()">Batal</button>
+                <button class="bg-blue-600 text-white px-4 py-2 rounded">Simpan</button>
+            </div>
+        </form>
     </div>
 </div>
