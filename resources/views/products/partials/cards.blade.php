@@ -25,6 +25,9 @@
                     <button onclick="openDeleteModal({{ $p->id }})" class="text-red-600">
                         Hapus
                     </button>
+                    <button onclick="openHistory({{ $p->id }})" class="text-gray-600">
+                        History
+                    </button>
                 </div>
             </div>
         </div>
