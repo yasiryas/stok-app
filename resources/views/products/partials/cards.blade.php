@@ -13,9 +13,11 @@
                 </div>
 
                 <div class="flex flex-col gap-1 text-sm">
-                    <button onclick="openStockModal({{ $p->id }}, 'in')"
+                    <button
+                        onclick="openStockModal({{ $p->id }}, 'in', '{{ $p->kode }}', '{{ $p->nama }}')"
                         class="text-green-600 text-sm">IN</button>
-                    <button onclick="openStockModal({{ $p->id }}, 'out')"
+                    <button
+                        onclick="openStockModal({{ $p->id }}, 'out', '{{ $p->kode }}', '{{ $p->nama }}')"
                         class="text-orange-600 text-sm">OUT</button>
                     <button onclick="openEditModal({{ $p->id }})" class="text-blue-600">
                         Edit

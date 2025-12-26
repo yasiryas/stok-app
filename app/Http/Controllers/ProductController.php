@@ -24,10 +24,18 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nama' => 'required',
-            'stok' => 'required|integer|min:0',
-        ]);
+        $validated = $request->validate(
+            [
+                'nama' => 'required',
+                'stok' => 'required|integer|min:0',
+            ],
+            [
+                'nama.required' => 'Nama produk wajib diisi.',
+                'stok.required' => 'Stok produk wajib diisi.',
+                'stok.integer' => 'Stok produk harus berupa angka.',
+                'stok.min' => 'Stok produk tidak boleh kurang dari 0.',
+            ]
+        );
 
         $lastProduct = Product::latest()->first();
 
@@ -40,19 +48,27 @@ class ProductController extends Controller
             'stok' => $validated['stok'],
         ]);
 
-        return response()->json(['message' => 'Product added successfully!', 'product' => $product]);
+        return response()->json(['message' => 'Produk berhasil ditambahkan!', 'product' => $product]);
     }
 
     public function update(Request $request, Product $product)
     {
-        $validated = $request->validate([
-            'nama' => 'required',
-            'stok' => 'required|integer|min:0',
-        ]);
+        $validated = $request->validate(
+            [
+                'nama' => 'required',
+                'stok' => 'required|integer|min:0',
+            ],
+            [
+                'nama.required' => 'Nama produk wajib diisi.',
+                'stok.required' => 'Stok produk wajib diisi.',
+                'stok.integer' => 'Stok produk harus berupa angka.',
+                'stok.min' => 'Stok produk tidak boleh kurang dari 0.',
+            ]
+        );
 
         $product->update($validated);
 
-        return response()->json(['message' => 'Product updated successfully!', 'product' => $product]);
+        return response()->json(['message' => 'Produk berhasil diupdate!', 'product' => $product]);
     }
 
     public function edit(Product $product)
@@ -63,6 +79,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return response()->json(['message' => 'Product deleted successfully!']);
+        return response()->json(['message' => 'Produk berhasil dihapus!']);
     }
 }

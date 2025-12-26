@@ -90,6 +90,7 @@
 <div id="modalStock" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
     <div class="bg-white rounded p-6 w-full max-w-md m-2">
         <h2 id="stockTitle" class="font-bold mb-4"></h2>
+        <h5 id="title_stock"></h5>
 
         <form id="formStock">
             <input type="hidden" id="stock_product_id">

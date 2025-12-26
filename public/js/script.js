@@ -410,10 +410,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     //================= Olah Stock ================= //
-    window.openStockModal = (id, type) => {
+    window.openStockModal = (id, type, kode, product) => {
         const form = document.getElementById('formStock')
         if (form) form.reset()
 
+        document.getElementById('title_stock').textContent = kode + ' - ' + product
         document.getElementById('stock_product_id').value = id
         document.getElementById('stock_type').value = type
 
@@ -442,36 +443,39 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('formStock')?.addEventListener('submit', e => {
     e.preventDefault()
 
-    const id = document.getElementById('stock_product_id').value
-    const type = document.getElementById('stock_type').value
+        const id = document.getElementById('stock_product_id').value
+        const type = document.getElementById('stock_type').value
 
-    const formData = new FormData(e.target)
-    formData.append('type', type)
+        const formData = new FormData(e.target)
+        formData.append('type', type)
 
-    fetch(`/products/${id}/stock`, {   // 🔥 PLURAL
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': csrfToken,
-            'Accept': 'application/json'
-        },
-        body: formData
+        fetch(`/products/${id}/stock`, {   // 🔥 PLURAL
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(async res => {
+            const data = await res.json()
+            if (!res.ok) throw data
+            return data
+        })
+        .then(data => {
+            updateRow(data.product)
+            closeStockModal()
+            showToast(`Stock ${type === 'in' ? 'Masuk' : 'Keluar'} berhasil`)
+        })
+        .catch(err => {
+            console.error(err)
+            showToast(err.message || 'Gagal update stok', 'error')
+        })
     })
-    .then(async res => {
-        const data = await res.json()
-        if (!res.ok) throw data
-        return data
-    })
-    .then(data => {
-        updateRow(data.product)
-        closeStockModal()
-        showToast(`Stock ${type === 'in' ? 'Masuk' : 'Keluar'} berhasil`)
-    })
-    .catch(err => {
-        console.error(err)
-        showToast(err.message || 'Gagal update stok', 'error')
-    })
-})
 
+    window.openHistory = id => {
+        window.location.href = `/products/${id}/history`
+    }
 
 
 })
