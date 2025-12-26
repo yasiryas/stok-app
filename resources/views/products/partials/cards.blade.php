@@ -1,6 +1,6 @@
 <!-- MOBILE CARD VIEW -->
+<input type="text" class="w-full border-b p-2 mb-2" id="searchInputMobile" placeholder="Cari barang..." />
 <div class="space-y-3 md:hidden" id="productCards">
-    <input type="text" class="w-full border-b p-2 mb-2" id="searchInputMobile" placeholder="Cari barang..." />
     @foreach ($products as $p)
         <div class="bg-white rounded shadow p-4 product-card" data-id="{{ $p->id }}">
             <div class="flex justify-between items-start">

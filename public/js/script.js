@@ -80,31 +80,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function addRow(product) {
 
-        if (table) {
-            table.insertAdjacentHTML('afterbegin', `
-                <tr class="border-t product-row" data-id="${product.id}">
-                    <td class="p-2 kode">${product.kode}</td>
-                    <td class="p-2 nama">${product.nama}</td>
-                    <td class="p-2 stok">${product.stok}</td>
-                    <td class="p-2 text-center">
-                        <button onclick="openEditModal(${product.id})" class="text-blue-600">Edit</button>
-                        |
-                        <button onclick="openDeleteModal(${product.id})" class="text-red-600">Hapus</button>
-                    </td>
-                </tr>
-            `)
-        }
-
-        if (cards) {
-            cards.insertAdjacentHTML('afterbegin', `
-                <div class="bg-white rounded shadow p-4 product-card" data-id="${product.id}">
-                    <div class="text-xs text-gray-500 kode">${product.kode}</div>
-                    <div class="font-semibold nama">${product.nama}</div>
-                    <div class="text-sm stok">Stok: ${product.stok}</div>
-                </div>
-            `)
-        }
+    /* ================= TABLE (DESKTOP) ================= */
+    if (table) {
+        table.insertAdjacentHTML('afterbegin', `
+            <tr class="border-t product-row" data-id="${product.id}">
+                <td class="p-2 kode">${product.kode}</td>
+                <td class="p-2 nama">${product.nama}</td>
+                <td class="p-2 stok">${product.stok}</td>
+                <td class="p-2 text-center text-sm">
+                    <button onclick="openStockModal(${product.id}, 'in')" class="text-green-600">IN</button> |
+                    <button onclick="openStockModal(${product.id}, 'out')" class="text-orange-600">OUT</button> |
+                    <button onclick="openEditModal(${product.id})" class="text-blue-600">Edit</button> |
+                    <button onclick="openDeleteModal(${product.id})" class="text-red-600">Hapus</button> |
+                    <button onclick="openHistory(${product.id})" class="text-gray-600">History</button>
+                </td>
+            </tr>
+        `)
     }
+
+    /* ================= CARD (MOBILE) ================= */
+    if (cards) {
+        cards.insertAdjacentHTML('afterbegin', `
+            <div class="bg-white rounded shadow p-4 product-card" data-id="${product.id}">
+                <div class="text-xs text-gray-500 kode">${product.kode}</div>
+                <div class="font-semibold nama">${product.nama}</div>
+                <div class="text-sm stok mb-2">Stok: ${product.stok}</div>
+
+                <div class="flex flex-wrap gap-2 text-sm">
+                    <button onclick="openStockModal(${product.id}, 'in')" class="text-green-600">IN</button>
+                    <button onclick="openStockModal(${product.id}, 'out')" class="text-orange-600">OUT</button>
+                    <button onclick="openEditModal(${product.id})" class="text-blue-600">Edit</button>
+                    <button onclick="openDeleteModal(${product.id})" class="text-red-600">Hapus</button>
+                    <button onclick="openHistory(${product.id})" class="text-gray-600">History</button>
+                </div>
+            </div>
+        `)
+    }
+}
 
     /* ================= EDIT ================= */
 
@@ -161,20 +173,21 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     function updateRow(product) {
-        const row = document.querySelector(`tr[data-id="${product.id}"]`)
-        if (row) {
-            row.querySelector('.nama').textContent = product.nama
-            row.querySelector('.stok').textContent = product.stok
-            highlight(row)
-        }
-
-        const card = document.querySelector(`.product-card[data-id="${product.id}"]`)
-        if (card) {
-            card.querySelector('.nama').textContent = product.nama
-            card.querySelector('.stok').textContent = `Stok: ${product.stok}`
-            highlight(card)
-        }
+    const row = document.querySelector(`tr[data-id="${product.id}"]`)
+    if (row) {
+        row.querySelector('.nama').textContent = product.nama
+        row.querySelector('.stok').textContent = product.stok
+        highlight(row)
     }
+
+    const card = document.querySelector(`.product-card[data-id="${product.id}"]`)
+    if (card) {
+        card.querySelector('.nama').textContent = product.nama
+        card.querySelector('.stok').textContent = `Stok: ${product.stok}`
+        highlight(card)
+    }
+}
+
 
     function highlight(el) {
         el.classList.add('bg-yellow-50')

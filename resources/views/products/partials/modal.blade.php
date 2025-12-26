@@ -3,10 +3,8 @@
     <div class="bg-white w-full max-w-md rounded p-6 m-2">
         <h2 class="text-lg font-bold mb-4">Tambah Barang</h2>
 
-        <form id="formTambah">
+        <form id="formTambah" action="{{ route('products.store') }}" method="POST">
             @csrf
-
-
             <div class="mb-3">
                 <label class="text-sm">Nama</label>
                 <input type="text" name="nama" class="w-full border p-2 rounded">
