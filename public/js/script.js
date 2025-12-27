@@ -105,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="text-xs text-gray-500 kode">${product.kode}</div>
                 <div class="font-semibold nama">${product.nama}</div>
                 <div class="text-sm stok mb-2">Stok: ${product.stok}</div>
-
                 <div class="flex flex-wrap gap-2 text-sm">
                     <button onclick="openStockModal(${product.id}, 'in')" class="text-green-600">IN</button>
                     <button onclick="openStockModal(${product.id}, 'out')" class="text-orange-600">OUT</button>
@@ -316,18 +315,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             document.getElementById('productCards').insertAdjacentHTML('beforeend', `
                 <div class="bg-white rounded shadow p-4 product-card" data-id="${id}">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="text-xs text-gray-500 kode">${kode}</div>
-                            <div class="font-semibold nama">${nama}</div>
-                            <div class="text-sm text-gray-600 stok">Stok: ${stok}</div>
-                        </div>
-                        <div class="flex flex-col gap-1 text-sm">
-                            <button onclick="openEditModal(${id})" class="text-blue-600">Edit</button>
-                            <button onclick="openDeleteModal(${id})" class="text-red-600">Hapus</button>
-                        </div>
-                    </div>
+                <div class="text-xs text-gray-500 kode">${kode}</div>
+                <div class="font-semibold nama">${nama}</div>
+                <div class="text-sm stok mb-2">Stok: ${stok}</div>
+                <div class="flex flex-wrap gap-2 text-sm">
+                    <button onclick="openStockModal(${id}, 'in')" class="text-green-600">IN</button>
+                    <button onclick="openStockModal(${id}, 'out')" class="text-orange-600">OUT</button>
+                    <button onclick="openEditModal(${id})" class="text-blue-600">Edit</button>
+                    <button onclick="openDeleteModal(${id})" class="text-red-600">Hapus</button>
+                    <button onclick="openHistory(${id})" class="text-gray-600">History</button>
                 </div>
+            </div>
             `)
         })
 
@@ -388,21 +386,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const stok = row.querySelector('.stok').textContent
 
                 card.insertAdjacentHTML('beforeend', `
-                    <div class="bg-white rounded shadow p-4 product-card" data-id="${id}">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="text-xs text-gray-500 kode">${kode}</div>
-                                <div class="font-semibold nama">${nama}</div>
-                                <div class="text-sm stok">Stok: ${stok}</div>
-                                                    </div>
-                        <div class="flex flex-col gap-1 text-sm">
-                            <button onclick="openEditModal(${id})" class="text-blue-600">
-                                Edit
-                            </button>
-                            <button onclick="openDeleteModal({{ $p->id }})" class="text-red-600">
-                                Hapus
-                            </button>
-                        </div>
+                <div class="bg-white rounded shadow p-4 product-card" data-id="${id}">
+                    <div class="text-xs text-gray-500 kode">${kode}</div>
+                    <div class="font-semibold nama">${nama}</div>
+                    <div class="text-sm stok mb-2">Stok: ${stok}</div>
+                    <div class="flex flex-wrap gap-2 text-sm">
+                        <button onclick="openStockModal(${id}, 'in', '${kode}', '${nama}')" class="text-green-600">IN</button>
+                        <button onclick="openStockModal(${id}, 'out', '${kode}', '${nama}'  )" class="text-orange-600">OUT</button>
+                        <button onclick="openEditModal(${id})" class="text-blue-600">Edit</button>
+                        <button onclick="openDeleteModal(${id})" class="text-red-600">Hapus</button>
+                        <button onclick="openHistory(${id})" class="text-gray-600">History</button>
                     </div>
                 </div>
                 `)
