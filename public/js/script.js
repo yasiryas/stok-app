@@ -216,10 +216,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
         .then(() => {
-            document.querySelector(`[data-id="${deleteId}"]`)?.remove()
-            closeDeleteModal()
-            showToast('Barang dihapus')
-        })
+        document
+            .querySelectorAll(`[data-id="${deleteId}"]`)
+            .forEach(el => {
+                el.classList.add('opacity-0', 'transition')
+                setTimeout(() => el.remove(), 300)
+            })
+
+        closeDeleteModal()
+        showToast('Barang dihapus')
+    })
     }
 
     /* ================= SEARCH ================= */
